@@ -55,8 +55,8 @@
 	<header>
 		<!-- Header desktop -->
 		<div class="container-menu-desktop">
-			<!-- Topbar -->
-			<div class="top-bar">
+			<!-- Topbar // Apartado de vista para la cuenta de usuario --> 
+			<!-- <div class="top-bar">
 				<div class="content-topbar flex-sb-m h-full container">
 					<div class="left-top-bar">
 						Bienvenido usuario: Nombre del usuario
@@ -76,7 +76,7 @@
 						</a>
 					</div>
 				</div>
-			</div>
+			</div> -->
 
 			<div class="wrap-menu-desktop">
 				<nav class="limiter-menu-desktop container">
@@ -101,9 +101,9 @@
 								<a href="<?= base_url(); ?>/carrito">Carrito</a>
 							</li>
 
-							<li>
+							<!-- <li>
 								<a href="<?= base_url(); ?>/nosotros">Nosotros</a>
-							</li>
+							</li> -->
 
 							<li>
 								<a href="<?= base_url(); ?>/contacto">Contacto</a>
@@ -156,7 +156,7 @@
 
 		<!-- Menu Mobile -->
 		<div class="menu-mobile">
-			<ul class="topbar-mobile">
+			<!-- <ul class="topbar-mobile">
 				<li>
 					<div class="left-top-bar">
 						Bienvenido Raymundo
@@ -178,7 +178,7 @@
 						</a>
 					</div>
 				</li>
-			</ul>
+			</ul> -->
 
 			<ul class="main-menu-m">
 				<li>
@@ -193,9 +193,9 @@
 					<a href="<?= base_url(); ?>/carrito">Carrito</a>
 				</li>
 
-				<li>
+				<!-- <li>
 					<a href="<?= base_url(); ?>/nosotros">Nosotros</a>
-				</li>
+				</li> -->
 
 				<li>
 					<a href="<?= base_url(); ?>/contacto">Contacto</a>
