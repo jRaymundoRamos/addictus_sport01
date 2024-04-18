@@ -83,7 +83,7 @@
 					
 					<!-- Logo desktop -->		
 					<a href="<?= base_url(); ?>" class="logo">
-						<img src="<?= media() ?>/tienda/images/" alt="Tienda Virtual">
+						<img src="<?= media() ?>/tienda/images/logo_tienda.png" alt="Tienda Virtual">
 					</a>
 
 					<!-- Menu desktop -->
@@ -127,11 +127,11 @@
 		</div>
 
 		<!-- Header Mobile -->
-		<div class="wrap-header-mobile">
+		<!-- <div class="wrap-header-mobile"> -->
 			<!-- Logo moblie -->		
-			<div class="logo-mobile">
-				<a href="<?= base_url(); ?>"><img src="<?= media() ?>/tienda/images/" alt="Tienda Virtual"></a>
-			</div>
+			<!-- <div class="logo-mobile">
+				<a href="<?= base_url(); ?>"><img src="<?= media() ?>/tienda/images/logo_tienda.png" alt="Tienda Virtual"></a>
+			</div> -->
 
 			<!-- Icon header -->
 			<!-- <div class="wrap-icon-header flex-w flex-r-m m-r-15">
@@ -146,16 +146,16 @@
 			</div> -->
 
 			<!-- Button show menu -->
-			<div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+			<!-- <div class="btn-show-menu-mobile hamburger hamburger--squeeze">
 				<span class="hamburger-box">
 					<span class="hamburger-inner"></span>
 				</span>
 			</div>
-		</div>
+		</div> -->
 
 
 		<!-- Menu Mobile -->
-		<div class="menu-mobile">
+		<!-- <div class="menu-mobile"> -->
 			<!-- <ul class="topbar-mobile">
 				<li>
 					<div class="left-top-bar">
@@ -180,14 +180,14 @@
 				</li>
 			</ul> -->
 
-			<ul class="main-menu-m">
-				<li>
+			<!-- <ul class="main-menu-m"> -->
+				<!-- <li>
 					<a href="<?= base_url(); ?>">Inicio</a>
 				</li>
 
 				<li>
 					<a href="<?= base_url(); ?>/tienda">Tienda</a>
-				</li>
+				</li> -->
 
 				<!-- <li>
 					<a href="<?= base_url(); ?>/carrito">Carrito</a>
@@ -197,14 +197,14 @@
 					<a href="<?= base_url(); ?>/nosotros">Nosotros</a>
 				</li> -->
 
-				<li>
+				<!-- <li>
 					<a href="<?= base_url(); ?>/contacto">Contacto</a>
 				</li>
 			</ul>
-		</div>
+		</div> -->
 
 		<!-- Modal Search -->
-		<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
+		<!-- <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
 			<div class="container-search-header">
 				<button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
 					<img src="<?= media() ?>/tienda/images/icons/icon-close2.png" alt="CLOSE">
@@ -217,10 +217,10 @@
 					<input class="plh3" type="text" name="search" placeholder="Search...">
 				</form>
 			</div>
-		</div>
+		</div> -->
 	</header>
 	<!-- Cart -->
-	<div class="wrap-header-cart js-panel-cart">
+	<!-- <div class="wrap-header-cart js-panel-cart">
 		<div class="s-full js-hide-cart"></div>
 		<div class="header-cart flex-col-l p-l-65 p-r-25">
 			<div class="header-cart-title flex-w flex-sb-m p-b-8">
@@ -236,4 +236,4 @@
 				<?php getModal('modalCarrito',$data); ?>
 			</div>
 		</div>
-	</div>
+	</div> -->

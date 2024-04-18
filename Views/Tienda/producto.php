@@ -67,7 +67,7 @@ $rutacategoria = $arrProducto['categoriaid'].'/'.$arrProducto['ruta_categoria'];
 						<!-- <p class="stext-102 cl3 p-t-23"></p> -->
 						<?= $arrProducto['descripcion']; ?>
 						<!--  -->
-						<div class="p-t-33">
+						<!-- <div class="p-t-33">
 							<div class="flex-w flex-r-m p-b-10">
 								<div class="size-204 flex-w flex-m respon6-next">
 									<div class="wrap-num-product flex-w m-r-20 m-tb-10">
@@ -87,7 +87,7 @@ $rutacategoria = $arrProducto['categoriaid'].'/'.$arrProducto['ruta_categoria'];
 									</button>
 								</div>
 							</div>	
-						</div>
+						</div> -->
 						<!--  -->
 						<div class="flex-w flex-m p-l-100 p-t-40 respon7">
 							<div class="flex-m bor9 p-r-10 m-r-11">
