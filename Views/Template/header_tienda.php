@@ -52,9 +52,9 @@
       </div>
     </div>
 	<!-- Header -->
-	<header>
+	<!-- <header> -->
 		<!-- Header desktop -->
-		<div class="container-menu-desktop">
+		<!-- <div class="container-menu-desktop"> -->
 			<!-- Topbar // Apartado de vista para la cuenta de usuario --> 
 			<!-- <div class="top-bar">
 				<div class="content-topbar flex-sb-m h-full container">
@@ -155,7 +155,7 @@
 
 
 		<!-- Menu Mobile -->
-		<div class="menu-mobile">
+		<!-- <div class="menu-mobile"> -->
 			<!-- <ul class="topbar-mobile">
 				<li>
 					<div class="left-top-bar">
