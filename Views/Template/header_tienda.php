@@ -52,7 +52,7 @@
       </div>
     </div>
 	<!-- Header -->
-	<!-- <header> -->
+	<header>
 		<!-- Header desktop -->
 		<!-- <div class="container-menu-desktop"> -->
 			<!-- Topbar // Apartado de vista para la cuenta de usuario --> 
@@ -75,8 +75,8 @@
 							Salir
 						</a>
 					</div>
-				</div>
-			</div> -->
+				</div> -->
+			<!-- </div> -->
 
 			<div class="wrap-menu-desktop">
 				<nav class="limiter-menu-desktop container">
@@ -97,9 +97,9 @@
 								<a href="<?= base_url(); ?>/tienda">Tienda</a>
 							</li>
 
-							<li>
+							<!-- <li>
 								<a href="<?= base_url(); ?>/carrito">Carrito</a>
-							</li>
+							</li> -->
 
 							<!-- <li>
 								<a href="<?= base_url(); ?>/nosotros">Nosotros</a>
@@ -112,7 +112,7 @@
 					</div>	
 
 					<!-- Icon header -->
-					<div class="wrap-icon-header flex-w flex-r-m">
+					<!-- <div class="wrap-icon-header flex-w flex-r-m">
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
 							<i class="zmdi zmdi-search"></i>
 						</div>
@@ -121,7 +121,7 @@
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
 						<?php } ?>
-					</div>
+					</div> -->
 				</nav>
 			</div>	
 		</div>
@@ -134,7 +134,7 @@
 			</div>
 
 			<!-- Icon header -->
-			<div class="wrap-icon-header flex-w flex-r-m m-r-15">
+			<!-- <div class="wrap-icon-header flex-w flex-r-m m-r-15">
 				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
 					<i class="zmdi zmdi-search"></i>
 				</div>
@@ -143,7 +143,7 @@
 					<i class="zmdi zmdi-shopping-cart"></i>
 				</div>
 				<?php } ?>
-			</div>
+			</div> -->
 
 			<!-- Button show menu -->
 			<div class="btn-show-menu-mobile hamburger hamburger--squeeze">
@@ -155,7 +155,7 @@
 
 
 		<!-- Menu Mobile -->
-		<!-- <div class="menu-mobile"> -->
+		<div class="menu-mobile">
 			<!-- <ul class="topbar-mobile">
 				<li>
 					<div class="left-top-bar">
@@ -189,9 +189,9 @@
 					<a href="<?= base_url(); ?>/tienda">Tienda</a>
 				</li>
 
-				<li>
+				<!-- <li>
 					<a href="<?= base_url(); ?>/carrito">Carrito</a>
-				</li>
+				</li> -->
 
 				<!-- <li>
 					<a href="<?= base_url(); ?>/nosotros">Nosotros</a>

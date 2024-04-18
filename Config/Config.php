@@ -1,7 +1,7 @@
 <?php 
 	
 	//define("BASE_URL", "http://localhost/tienda_virtual/");
-	const BASE_URL = "http://localhost/tiendavirtual_carritocompras";
+	const BASE_URL = "http://localhost/addictus_sport01/";
 
 	//Zona horaria
 	date_default_timezone_set('America/Mexico_City');
