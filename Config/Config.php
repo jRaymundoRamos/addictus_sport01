@@ -1,16 +1,14 @@
-<?php 
-	
-	//define("BASE_URL", "http://localhost/tienda_virtual/");
-	const BASE_URL = "http://localhost/addictus_sport01/";
+<?php
+	const BASE_URL = "https://innovadev.com.mx/addictus_sport";
 
 	//Zona horaria
 	date_default_timezone_set('America/Mexico_City');
 
 	//Datos de conexión a Base de Datos
 	const DB_HOST = "localhost";
-	const DB_NAME = "db_tiendacarrito";
-	const DB_USER = "root";
-	const DB_PASSWORD = "";
+	const DB_NAME = "innovad8_db_tiendacarrito";
+	const DB_USER = "innovad8_espaciodev";
+	const DB_PASSWORD = "Ferrari1354#HG";
 	const DB_CHARSET = "utf8";
 
 	//Deliminadores decimal y meles Ej. 24,1989.00
