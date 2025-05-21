@@ -1,16 +1,21 @@
-<?php 
-	//require_once("CategoriasModel.php");
-	class HomeModel extends Mysql
-	{
-		private $objCategoria;
-		public function __construct()
-		{
-			parent::__construct();
-			//$this->objCategoria = new CategoriasModel();
-		}
+<?php
 
-		public function getCategorias(){
-			//return $this->objCategoria->selectCategorias();
-		}	
-	}
- ?>
+class HomeModel extends Mysql
+{
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    /**
+     * [Opcional] Ejemplo de método para obtener categorías activas.
+     * Descomenta y ajusta si lo necesitas.
+     */
+    /*
+    public function getCategorias(): array
+    {
+        $sql = "SELECT * FROM categoria WHERE status != 0 ORDER BY nombre ASC";
+        return $this->select_all($sql);
+    }
+    */
+}

@@ -1,100 +1,68 @@
-<?php 
+<?php
 
-	class RolesModel extends Mysql
-	{
-		public $intIdrol;
-		public $strRol;
-		public $strDescripcion;
-		public $intStatus;
+class RolesModel extends Mysql
+{
+    private int $intIdrol;
+    private string $strRol;
+    private string $strDescripcion;
+    private int $intStatus;
 
-		public function __construct()
-		{
-			parent::__construct();
-		}
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
-		public function selectRoles()
-		{
-			$whereAdmin = "";
-			if($_SESSION['idUser'] != 1 ){
-				$whereAdmin = " and idrol != 1 ";
-			}
-			//EXTRAE ROLES
-			$sql = "SELECT * FROM rol WHERE status != 0".$whereAdmin;
-			$request = $this->select_all($sql);
-			return $request;
-		}
+    public function selectRoles(): array
+    {
+        $whereAdmin = ($_SESSION['idUser'] ?? 0) != 1 ? " AND idrol != 1" : "";
+        $sql = "SELECT * FROM rol WHERE status != 0" . $whereAdmin;
+        return $this->select_all($sql);
+    }
 
-		public function selectRol(int $idrol)
-		{
-			//BUSCAR ROLE
-			$this->intIdrol = $idrol;
-			$sql = "SELECT * FROM rol WHERE idrol = $this->intIdrol";
-			$request = $this->select($sql);
-			return $request;
-		}
+    public function selectRol(int $idrol): array
+    {
+        $sql = "SELECT * FROM rol WHERE idrol = ?";
+        return $this->select($sql, [$idrol]);
+    }
 
-		public function insertRol(string $rol, string $descripcion, int $status){
+    public function insertRol(string $rol, string $descripcion, int $status): int|string
+    {
+        $sql = "SELECT idrol FROM rol WHERE nombrerol = ?";
+        $exists = $this->select_all($sql, [$rol]);
 
-			$return = "";
-			$this->strRol = $rol;
-			$this->strDescripcion = $descripcion;
-			$this->intStatus = $status;
+        if (!empty($exists)) {
+            return "exist";
+        }
 
-			$sql = "SELECT * FROM rol WHERE nombrerol = '{$this->strRol}' ";
-			$request = $this->select_all($sql);
+        $sql = "INSERT INTO rol (nombrerol, descripcion, status) VALUES (?, ?, ?)";
+        return $this->insert($sql, [$rol, $descripcion, $status]);
+    }
 
-			if(empty($request))
-			{
-				$query_insert  = "INSERT INTO rol(nombrerol,descripcion,status) VALUES(?,?,?)";
-	        	$arrData = array($this->strRol, $this->strDescripcion, $this->intStatus);
-	        	$request_insert = $this->insert($query_insert,$arrData);
-	        	$return = $request_insert;
-			}else{
-				$return = "exist";
-			}
-			return $return;
-		}	
+    public function updateRol(int $idrol, string $rol, string $descripcion, int $status): int|string
+    {
+        $sql = "SELECT idrol FROM rol WHERE nombrerol = ? AND idrol != ?";
+        $exists = $this->select_all($sql, [$rol, $idrol]);
 
-		public function updateRol(int $idrol, string $rol, string $descripcion, int $status){
-			$this->intIdrol = $idrol;
-			$this->strRol = $rol;
-			$this->strDescripcion = $descripcion;
-			$this->intStatus = $status;
+        if (!empty($exists)) {
+            return "exist";
+        }
 
-			$sql = "SELECT * FROM rol WHERE nombrerol = '$this->strRol' AND idrol != $this->intIdrol";
-			$request = $this->select_all($sql);
+        $sql = "UPDATE rol SET nombrerol = ?, descripcion = ?, status = ? WHERE idrol = ?";
+        return $this->update($sql, [$rol, $descripcion, $status, $idrol]);
+    }
 
-			if(empty($request))
-			{
-				$sql = "UPDATE rol SET nombrerol = ?, descripcion = ?, status = ? WHERE idrol = $this->intIdrol ";
-				$arrData = array($this->strRol, $this->strDescripcion, $this->intStatus);
-				$request = $this->update($sql,$arrData);
-			}else{
-				$request = "exist";
-			}
-		    return $request;			
-		}
+    public function deleteRol(int $idrol): string
+    {
+        $sql = "SELECT idpersona FROM persona WHERE rolid = ?";
+        $linkedUsers = $this->select_all($sql, [$idrol]);
 
-		public function deleteRol(int $idrol)
-		{
-			$this->intIdrol = $idrol;
-			$sql = "SELECT * FROM persona WHERE rolid = $this->intIdrol";
-			$request = $this->select_all($sql);
-			if(empty($request))
-			{
-				$sql = "UPDATE rol SET status = ? WHERE idrol = $this->intIdrol ";
-				$arrData = array(0);
-				$request = $this->update($sql,$arrData);
-				if($request)
-				{
-					$request = 'ok';	
-				}else{
-					$request = 'error';
-				}
-			}else{
-				$request = 'exist';
-			}
-			return $request;
-		}
-	}
- ?>
+        if (!empty($linkedUsers)) {
+            return "exist";
+        }
+
+        $sql = "UPDATE rol SET status = 0 WHERE idrol = ?";
+        $result = $this->update($sql, [$idrol]);
+
+        return $result ? 'ok' : 'error';
+    }
+}
