@@ -1,13 +1,17 @@
 <?php
-	class Logout
-	{
-		public function __construct()
-		{
-			session_start();
-			session_unset();
-			session_destroy();
-			header('location: '.base_url().'/login');
-			die();
-		}
-	}
- ?>
+
+class Logout extends Controllers
+{
+    public function __construct()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        session_unset();
+        session_destroy();
+
+        header('Location: ' . BASE_URL . 'login');
+        exit;
+    }
+}

@@ -1,17 +1,18 @@
-<?php 
+<?php
 
-	class Errors extends Controllers{
-		public function __construct()
-		{
-			parent::__construct();
-		}
+class Error extends Controllers
+{
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
-		public function notFound()
-		{
-			$this->views->getView($this,"error");
-		}
-	}
+    public function notFound(): void
+    {
+        $this->views->getView($this, "error");
+    }
+}
 
-	$notFound = new Errors();
-	$notFound->notFound();
- ?>
+// Ejecutar directamente si este archivo se carga como fallback
+$notFound = new Error();
+$notFound->notFound();

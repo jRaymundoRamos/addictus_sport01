@@ -1,6 +1,7 @@
 <?php
 // Base del sistema
 define('BASE_URL', getenv('BASE_URL'));
+define('NOMBRE_EMPRESA', getenv('NOMBRE_EMPRESA'));
 
 // Configuración base de datos
 define('DB_HOST', getenv('DB_HOST'));

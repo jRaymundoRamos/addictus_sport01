@@ -1,210 +1,188 @@
-<?php 
-	class Productos extends Controllers{
-		public function __construct()
-		{
-			parent::__construct();
-			session_start();
-			session_regenerate_id(true);
-			if(empty($_SESSION['login']))
-			{
-				header('Location: '.base_url().'/login');
-				die();
-			}
-			getPermisos(4);
-		}
+<?php
 
-		public function Productos()
-		{
-			if(empty($_SESSION['permisosMod']['r'])){
-				header("Location:".base_url().'/dashboard');
-			}
-			$data['page_tag'] = "Productos";
-			$data['page_title'] = "PRODUCTOS <small>Tienda Virtual</small>";
-			$data['page_name'] = "productos";
-			$data['page_functions_js'] = "functions_productos.js";
-			$this->views->getView($this,"productos",$data);
-		}
+class Productos extends Controllers
+{
+    public function __construct()
+    {
+        parent::__construct();
+        requireLogin();
+        getPermisos(4);
+    }
 
-		public function getProductos()
-		{
-			if($_SESSION['permisosMod']['r']){
-				$arrData = $this->model->selectProductos();
-				for ($i=0; $i < count($arrData); $i++) {
-					$btnView = '';
-					$btnEdit = '';
-					$btnDelete = '';
+    public function productos(): void
+    {
+        if (empty($_SESSION['permisosMod']['r'])) {
+            header("Location: " . BASE_URL . "dashboard");
+            exit;
+        }
 
-					if($arrData[$i]['status'] == 1)
-					{
-						$arrData[$i]['status'] = '<span class="badge badge-success">Activo</span>';
-					}else{
-						$arrData[$i]['status'] = '<span class="badge badge-danger">Inactivo</span>';
-					}
+        $data = [
+            'page_tag'          => "Productos",
+            'page_title'        => "PRODUCTOS <small>" . NOMBRE_EMPRESA . "</small>",
+            'page_name'         => "productos",
+            'page_functions_js' => "functions_productos.js"
+        ];
 
-					$arrData[$i]['precio'] = SMONEY.' '.formatMoney($arrData[$i]['precio']);
-					if($_SESSION['permisosMod']['r']){
-						$btnView = '<button class="btn btn-info btn-sm" onClick="fntViewInfo('.$arrData[$i]['idproducto'].')" title="Ver producto"><i class="far fa-eye"></i></button>';
-					}
-					if($_SESSION['permisosMod']['u']){
-						$btnEdit = '<button class="btn btn-primary  btn-sm" onClick="fntEditInfo(this,'.$arrData[$i]['idproducto'].')" title="Editar producto"><i class="fas fa-pencil-alt"></i></button>';
-					}
-					if($_SESSION['permisosMod']['d']){	
-						$btnDelete = '<button class="btn btn-danger btn-sm" onClick="fntDelInfo('.$arrData[$i]['idproducto'].')" title="Eliminar producto"><i class="far fa-trash-alt"></i></button>';
-					}
-					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnEdit.' '.$btnDelete.'</div>';
-				}
-				echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
-			}
-			die();
-		}
+        $this->views->getView($this, "productos", $data);
+    }
 
-		public function setProducto(){
-			if($_POST){
-				if(empty($_POST['txtNombre']) || empty($_POST['txtCodigo']) || empty($_POST['listCategoria']) || empty($_POST['txtPrecio']) || empty($_POST['listStatus']) )
-				{
-					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
-				}else{
-					
-					$idProducto = intval($_POST['idProducto']);
-					$strNombre = strClean($_POST['txtNombre']);
-					$strDescripcion = strClean($_POST['txtDescripcion']);
-					$strCodigo = strClean($_POST['txtCodigo']);
-					$intCategoriaId = intval($_POST['listCategoria']);
-					$strPrecio = strClean($_POST['txtPrecio']);
-					$intStock = intval($_POST['txtStock']);
-					$intStatus = intval($_POST['listStatus']);
-					$request_producto = "";
+    public function getProductos(): void
+    {
+        if (!$_SESSION['permisosMod']['r']) exit;
 
-					$ruta = strtolower(clear_cadena($strNombre));
-					$ruta = str_replace(" ","-",$ruta);
+        $arrData = $this->model->selectProductos();
 
-					if($idProducto == 0)
-					{
-						$option = 1;
-						if($_SESSION['permisosMod']['w']){
-							$request_producto = $this->model->insertProducto($strNombre, 
-																		$strDescripcion, 
-																		$strCodigo, 
-																		$intCategoriaId,
-																		$strPrecio, 
-																		$intStock, 
-																		$ruta,
-																		$intStatus );
-						}
-					}else{
-						$option = 2;
-						if($_SESSION['permisosMod']['u']){
-							$request_producto = $this->model->updateProducto($idProducto,
-																		$strNombre,
-																		$strDescripcion, 
-																		$strCodigo, 
-																		$intCategoriaId,
-																		$strPrecio, 
-																		$intStock, 
-																		$ruta,
-																		$intStatus);
-						}
-					}
-					if($request_producto > 0 )
-					{
-						if($option == 1){
-							$arrResponse = array('status' => true, 'idproducto' => $request_producto, 'msg' => 'Datos guardados correctamente.');
-						}else{
-							$arrResponse = array('status' => true, 'idproducto' => $idProducto, 'msg' => 'Datos Actualizados correctamente.');
-						}
-					}else if($request_producto == 'exist'){
-						$arrResponse = array('status' => false, 'msg' => '¡Atención! ya existe un producto con el Código Ingresado.');		
-					}else{
-						$arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
-					}
-				}
-				echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
-			}
-			die();
-		}
+        foreach ($arrData as &$item) {
+            $item['status'] = $item['status'] == 1
+                ? '<span class="badge badge-success">Activo</span>'
+                : '<span class="badge badge-danger">Inactivo</span>';
 
-		public function getProducto($idproducto){
-			if($_SESSION['permisosMod']['r']){
-				$idproducto = intval($idproducto);
-				if($idproducto > 0){
-					$arrData = $this->model->selectProducto($idproducto);
-					if(empty($arrData)){
-						$arrResponse = array('status' => false, 'msg' => 'Datos no encontrados.');
-					}else{
-						$arrImg = $this->model->selectImages($idproducto);
-						if(count($arrImg) > 0){
-							for ($i=0; $i < count($arrImg); $i++) { 
-								$arrImg[$i]['url_image'] = media().'/images/uploads/'.$arrImg[$i]['img'];
-							}
-						}
-						$arrData['images'] = $arrImg;
-						$arrResponse = array('status' => true, 'data' => $arrData);
-					}
-					echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
-				}
-			}
-			die();
-		}
+            $item['precio'] = SMONEY . ' ' . formatMoney($item['precio']);
 
-		public function setImage(){
-			if($_POST){
-				if(empty($_POST['idproducto'])){
-					$arrResponse = array('status' => false, 'msg' => 'Error de dato.');
-				}else{
-					$idProducto = intval($_POST['idproducto']);
-					$foto      = $_FILES['foto'];
-					$imgNombre = 'pro_'.md5(date('d-m-Y H:m:s')).'.jpg';
-					$request_image = $this->model->insertImage($idProducto,$imgNombre);
-					if($request_image){
-						$uploadImage = uploadImage($foto,$imgNombre);
-						$arrResponse = array('status' => true, 'imgname' => $imgNombre, 'msg' => 'Archivo cargado.');
-					}else{
-						$arrResponse = array('status' => false, 'msg' => 'Error de carga.');
-					}
-				}
-				echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
-			}
-			die();
-		}
+            $buttons = [];
 
-		public function delFile(){
-			if($_POST){
-				if(empty($_POST['idproducto']) || empty($_POST['file'])){
-					$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
-				}else{
-					//Eliminar de la DB
-					$idProducto = intval($_POST['idproducto']);
-					$imgNombre  = strClean($_POST['file']);
-					$request_image = $this->model->deleteImage($idProducto,$imgNombre);
+            if ($_SESSION['permisosMod']['r']) {
+                $buttons[] = '<button class="btn btn-info btn-sm" onClick="fntViewInfo(' . $item['idproducto'] . ')" title="Ver"><i class="far fa-eye"></i></button>';
+            }
+            if ($_SESSION['permisosMod']['u']) {
+                $buttons[] = '<button class="btn btn-primary btn-sm" onClick="fntEditInfo(this,' . $item['idproducto'] . ')" title="Editar"><i class="fas fa-pencil-alt"></i></button>';
+            }
+            if ($_SESSION['permisosMod']['d']) {
+                $buttons[] = '<button class="btn btn-danger btn-sm" onClick="fntDelInfo(' . $item['idproducto'] . ')" title="Eliminar"><i class="far fa-trash-alt"></i></button>';
+            }
 
-					if($request_image){
-						$deleteFile =  deleteFile($imgNombre);
-						$arrResponse = array('status' => true, 'msg' => 'Archivo eliminado');
-					}else{
-						$arrResponse = array('status' => false, 'msg' => 'Error al eliminar');
-					}
-				}
-				echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
-			}
-			die();
-		}
+            $item['options'] = '<div class="text-center">' . implode(' ', $buttons) . '</div>';
+        }
 
-		public function delProducto(){
-			if($_POST){
-				if($_SESSION['permisosMod']['d']){
-					$intIdproducto = intval($_POST['idProducto']);
-					$requestDelete = $this->model->deleteProducto($intIdproducto);
-					if($requestDelete)
-					{
-						$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el producto');
-					}else{
-						$arrResponse = array('status' => false, 'msg' => 'Error al eliminar el producto.');
-					}
-					echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
-				}
-			}
-			die();
-		}
-	}
+        echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
+        exit;
+    }
 
- ?>
+    public function setProducto(): void
+    {
+        if (!$_POST) exit;
+
+        if (
+            empty($_POST['txtNombre']) || empty($_POST['txtCodigo']) ||
+            empty($_POST['listCategoria']) || empty($_POST['txtPrecio']) ||
+            empty($_POST['listStatus'])
+        ) {
+            $arrResponse = ['status' => false, 'msg' => 'Datos incorrectos.'];
+        } else {
+            $idProducto     = intval($_POST['idProducto']);
+            $strNombre      = strClean($_POST['txtNombre']);
+            $strDescripcion = strClean($_POST['txtDescripcion']);
+            $strCodigo      = strClean($_POST['txtCodigo']);
+            $intCategoriaId = intval($_POST['listCategoria']);
+            $strPrecio      = strClean($_POST['txtPrecio']);
+            $intStock       = intval($_POST['txtStock']);
+            $intStatus      = intval($_POST['listStatus']);
+            $ruta           = str_replace(" ", "-", strtolower(clear_cadena($strNombre)));
+
+            $request_producto = '';
+            $option = $idProducto === 0 ? 1 : 2;
+
+            if ($option === 1 && $_SESSION['permisosMod']['w']) {
+                $request_producto = $this->model->insertProducto($strNombre, $strDescripcion, $strCodigo, $intCategoriaId, $strPrecio, $intStock, $ruta, $intStatus);
+            }
+
+            if ($option === 2 && $_SESSION['permisosMod']['u']) {
+                $request_producto = $this->model->updateProducto($idProducto, $strNombre, $strDescripcion, $strCodigo, $intCategoriaId, $strPrecio, $intStock, $ruta, $intStatus);
+            }
+
+            if ($request_producto > 0) {
+                $arrResponse = [
+                    'status'     => true,
+                    'idproducto' => $option === 1 ? $request_producto : $idProducto,
+                    'msg'        => $option === 1 ? 'Datos guardados correctamente.' : 'Datos actualizados correctamente.'
+                ];
+            } elseif ($request_producto === 'exist') {
+                $arrResponse = ['status' => false, 'msg' => 'Ya existe un producto con ese código.'];
+            } else {
+                $arrResponse = ['status' => false, 'msg' => 'No fue posible almacenar los datos.'];
+            }
+        }
+
+        echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    public function getProducto(int $idproducto): void
+    {
+        if (!$_SESSION['permisosMod']['r']) exit;
+
+        $idproducto = intval($idproducto);
+        if ($idproducto <= 0) exit;
+
+        $arrData = $this->model->selectProducto($idproducto);
+
+        if (empty($arrData)) {
+            $arrResponse = ['status' => false, 'msg' => 'Datos no encontrados.'];
+        } else {
+            $arrImg = $this->model->selectImages($idproducto);
+            foreach ($arrImg as &$img) {
+                $img['url_image'] = media() . '/images/uploads/' . $img['img'];
+            }
+
+            $arrData['images'] = $arrImg;
+            $arrResponse = ['status' => true, 'data' => $arrData];
+        }
+
+        echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    public function setImage(): void
+    {
+        if (!$_POST || empty($_POST['idproducto'])) exit;
+
+        $idProducto = intval($_POST['idproducto']);
+        $foto       = $_FILES['foto'];
+        $imgNombre  = 'pro_' . md5(date('Y-m-d H:i:s')) . '.jpg';
+
+        $request_image = $this->model->insertImage($idProducto, $imgNombre);
+
+        $arrResponse = $request_image
+            ? ['status' => true, 'imgname' => $imgNombre, 'msg' => 'Archivo cargado.']
+            : ['status' => false, 'msg' => 'Error de carga.'];
+
+        if ($request_image) uploadImage($foto, $imgNombre);
+
+        echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    public function delFile(): void
+    {
+        if (!$_POST || empty($_POST['idproducto']) || empty($_POST['file'])) exit;
+
+        $idProducto = intval($_POST['idproducto']);
+        $imgNombre  = strClean($_POST['file']);
+
+        $request = $this->model->deleteImage($idProducto, $imgNombre);
+
+        $arrResponse = $request
+            ? ['status' => true, 'msg' => 'Archivo eliminado']
+            : ['status' => false, 'msg' => 'Error al eliminar'];
+
+        if ($request) deleteFile($imgNombre);
+
+        echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    public function delProducto(): void
+    {
+        if (!$_POST || !$_SESSION['permisosMod']['d']) exit;
+
+        $intIdproducto = intval($_POST['idProducto']);
+        $requestDelete = $this->model->deleteProducto($intIdproducto);
+
+        $arrResponse = $requestDelete
+            ? ['status' => true, 'msg' => 'Producto eliminado.']
+            : ['status' => false, 'msg' => 'No se pudo eliminar el producto.'];
+
+        echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+}
