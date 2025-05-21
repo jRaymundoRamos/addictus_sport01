@@ -1,22 +1,20 @@
 <?php
-class Conexion{
-	private $conect;
 
-	public function __construct(){
-		$connectionString = "mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=".DB_CHARSET;
-		try{
-			$this->conect = new PDO($connectionString, DB_USER, DB_PASSWORD);
-			$this->conect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		    //echo "conexión exitosa";
-		}catch(PDOException $e){
-			$this->conect = 'Error de conexión';
-		    echo "ERROR: " . $e->getMessage();
-		}
-	}
+class Conexion {
+    private ?PDO $conect = null;
 
-	public function conect(){
-		return $this->conect;
-	}
+    public function __construct() {
+        $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=" . DB_CHARSET;
+        try {
+            $this->conect = new PDO($dsn, DB_USER, DB_PASSWORD);
+            $this->conect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            // Puedes lanzar excepción para que la maneje el controlador
+            throw new Exception("Error de conexión: " . $e->getMessage());
+        }
+    }
+
+    public function conect(): PDO {
+        return $this->conect;
+    }
 }
-
-?>
