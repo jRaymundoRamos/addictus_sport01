@@ -36,7 +36,6 @@ class Login extends Controllers
 
     public function loginUser(): void
     {
-        $rolesModel = new RolesModel();
         if ($_POST) {
             if (empty($_POST['txtEmail']) || empty($_POST['txtPassword'])) {
                 $arrResponse = ['status' => false, 'msg' => 'Error de datos'];
@@ -55,7 +54,8 @@ class Login extends Controllers
                         $_SESSION['login'] = true;
 
                         $_SESSION['userData'] = $this->model->sessionLogin($_SESSION['idUser']);
-                        $_SESSION['permisos'] = $rolesModel->permisosRol($_SESSION['userData']['idrol']);
+                        $_SESSION['permisos'] = $this->model->permisosRol($_SESSION['userData']['idrol']);
+                        error_log(print_r($_SESSION['permisos'], true));
 
                         $arrResponse = ['status' => true, 'msg' => 'ok'];
                     } else {

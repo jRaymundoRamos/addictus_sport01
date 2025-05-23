@@ -8,7 +8,12 @@
             </div>
         </div>
         <ul class="app-menu">
-            <?php  var_dump($_SESSION['permisos']); ?>
+            <?php  
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+            var_dump($_SESSION['permisos']); ?>
             <?php if (!empty($_SESSION['permisos'][1]['r'])) { ?>
                 <li>
                     <a class="app-menu__item" href="<?= base_url(); ?>/dashboard">
