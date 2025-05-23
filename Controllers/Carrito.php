@@ -16,6 +16,11 @@ class Carrito extends Controllers
         }
     }
 
+    public function index(): void
+    {
+        $this->carrito();
+    }
+    
     public function carrito(): void
     {
         $data = [

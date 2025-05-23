@@ -9,6 +9,11 @@ class Productos extends Controllers
         getPermisos(4);
     }
 
+    public function index(): void
+    {
+        $this->productos();
+    }
+
     public function productos(): void
     {
         if (empty($_SESSION['permisosMod']['r'])) {

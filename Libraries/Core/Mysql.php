@@ -25,11 +25,11 @@ class Mysql extends Conexion {
     }
 
     // Buscar un solo registro
-    public function select(string $query): array {
+    public function select(string $query, array $params = []): array {
         try {
             $this->strquery = $query;
             $result = $this->conexion->prepare($this->strquery);
-            $result->execute();
+            $result->execute($params); // 👈 Aquí pasas los parámetros
             return $result->fetch(PDO::FETCH_ASSOC) ?: [];
         } catch (PDOException $e) {
             return [];
@@ -44,6 +44,18 @@ class Mysql extends Conexion {
             $result->execute();
             return $result->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
+            return [];
+        }
+    }
+
+    public function select_all_params(string $query, array $params = []): array
+    {
+        try {
+            $stmt = $this->conexion->prepare($query);
+            $stmt->execute($params);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("DB Error: " . $e->getMessage());
             return [];
         }
     }

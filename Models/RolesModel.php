@@ -65,4 +65,5 @@ class RolesModel extends Mysql
 
         return $result ? 'ok' : 'error';
     }
+    
 }

@@ -1,10 +1,7 @@
+<IfModule mod_rewrite.c>
 RewriteEngine On
-
-# Forzar HTTPS
-RewriteCond %{HTTPS} !=on
-RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-# Redirección para URLs amigables (ruteo)
+RewriteBase /tienda_virtual/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+</IfModule>

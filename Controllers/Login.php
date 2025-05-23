@@ -17,6 +17,10 @@ class Login extends Controllers
 
         parent::__construct();
     }
+    public function index(): void
+    {
+        $this->login();
+    }
 
     public function login(): void
     {
@@ -32,6 +36,7 @@ class Login extends Controllers
 
     public function loginUser(): void
     {
+        $rolesModel = new RolesModel();
         if ($_POST) {
             if (empty($_POST['txtEmail']) || empty($_POST['txtPassword'])) {
                 $arrResponse = ['status' => false, 'msg' => 'Error de datos'];
@@ -50,6 +55,8 @@ class Login extends Controllers
                         $_SESSION['login'] = true;
 
                         $_SESSION['userData'] = $this->model->sessionLogin($_SESSION['idUser']);
+                        $_SESSION['permisos'] = $rolesModel->permisosRol($_SESSION['userData']['idrol']);
+
                         $arrResponse = ['status' => true, 'msg' => 'ok'];
                     } else {
                         $arrResponse = ['status' => false, 'msg' => 'Usuario inactivo.'];

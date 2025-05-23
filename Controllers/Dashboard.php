@@ -10,6 +10,11 @@ class Dashboard extends Controllers
         getPermisos(1);
     }
 
+    public function index(): void
+    {
+        $this->dashboard();
+    }
+
     public function dashboard(): void
     {
         $data = [

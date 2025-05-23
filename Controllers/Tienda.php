@@ -20,6 +20,11 @@ class Tienda extends Controllers
 		$this->login = new LoginModel();
 	}
 
+	public function index(): void
+    {
+        $this->tienda();
+    }
+
 	public function tienda(): void
 	{
 		$data = [

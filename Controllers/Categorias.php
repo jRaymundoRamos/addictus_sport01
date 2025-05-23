@@ -26,6 +26,11 @@ class Categorias extends Controllers
         $this->views->getView($this, "categorias", $data);
     }
 
+    public function index(): void
+    {
+        $this->categorias();
+    }
+
     public function setCategoria(): void
     {
         if (!$_POST) exit;

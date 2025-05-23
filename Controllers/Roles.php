@@ -9,6 +9,11 @@ class Roles extends Controllers
         getPermisos(2);
     }
 
+    public function index(): void
+    {
+        $this->roles();
+    }
+
     public function roles(): void
     {
         if (empty($_SESSION['permisosMod']['r'])) {

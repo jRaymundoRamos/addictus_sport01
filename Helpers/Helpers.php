@@ -9,7 +9,7 @@ function base_url(): string {
 }
 
 function media(): string {
-    return BASE_URL . "/Assets";
+    return BASE_URL . "Assets";
 }
 
 // ==========================

@@ -99,4 +99,30 @@ class LoginModel extends Mysql
 		$sql = "UPDATE persona SET password = ?, token = '' WHERE idpersona = ?";
 		return $this->update($sql, [$this->strPassword, $this->intIdUsuario]);
 	}
+
+	/**
+	 * Selecciona los permisos de la base de datos
+	 * @param int $idrol
+	 * @return array{d: bool, r: bool, u: bool, w: bool[]}
+	 */
+	public function permisosRol(int $idrol): array
+		{
+			$sql = "SELECT p.moduloid, p.r, p.w, p.u, p.d 
+					FROM permisos p
+					INNER JOIN modulo m ON p.moduloid = m.idmodulo
+					WHERE p.rolid = ?";
+			$arrPermisos = $this->select_all_params($sql, [$idrol]);
+
+			$permisos = [];
+			foreach ($arrPermisos as $permiso) {
+				$permisos[$permiso['moduloid']] = [
+					'r' => (int)$permiso['r'] === 1,
+					'w' => (int)$permiso['w'] === 1,
+					'u' => (int)$permiso['u'] === 1,
+					'd' => (int)$permiso['d'] === 1
+				];
+			}
+			return $permisos;
+		}
+
 }

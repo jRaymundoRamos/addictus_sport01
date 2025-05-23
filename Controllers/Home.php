@@ -16,6 +16,11 @@ class Home extends Controllers
         }
     }
 
+    public function index(): void
+    {
+        $this->home();
+    }
+
     public function home(): void
     {
         $data = [

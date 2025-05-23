@@ -18,11 +18,11 @@ if (file_exists($controllerFile)) {
         if (method_exists($instance, $method)) {
             call_user_func_array([$instance, $method], is_array($params) ? [$params] : []);
         } else {
-            require_once __DIR__ . "/../../Controllers/Error.php";
+            require_once __DIR__ . "/../../Controllers/NotFound.php";
         }
     } else {
-        require_once __DIR__ . "/../../Controllers/Error.php";
+        require_once __DIR__ . "/../../Controllers/NotFound.php";
     }
 } else {
-    require_once __DIR__ . "/../../Controllers/Error.php";
+    require_once __DIR__ . "/../../Controllers/NotFound.php";
 }

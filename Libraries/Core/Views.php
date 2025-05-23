@@ -4,7 +4,7 @@ class Views
 {
     public function getView(object $controller, string $view, array $data = []): void
     {
-        $controllerName = get_class($controller);
+    $controllerName = str_replace('Controller', '', get_class($controller));
         $viewPath = ($controllerName === 'Home')
             ? __DIR__ . "/../../Views/{$view}.php"
             : __DIR__ . "/../../Views/{$controllerName}/{$view}.php";

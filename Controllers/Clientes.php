@@ -9,6 +9,11 @@ class Clientes extends Controllers
         getPermisos(3);
     }
 
+    public function index(): void
+    {
+        $this->clientes();
+    }
+
     public function clientes(): void
     {
         if (empty($_SESSION['permisosMod']['r'])) {

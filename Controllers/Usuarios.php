@@ -9,6 +9,11 @@ class Usuarios extends Controllers
         getPermisos(2);
     }
 
+    public function index(): void
+    {
+        $this->usuarios();
+    }
+
     public function usuarios(): void
     {
         if (empty($_SESSION['permisosMod']['r'])) {
