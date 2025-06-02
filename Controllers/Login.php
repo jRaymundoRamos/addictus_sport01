@@ -54,7 +54,10 @@ class Login extends Controllers
                         $_SESSION['login'] = true;
 
                         $_SESSION['userData'] = $this->model->sessionLogin($_SESSION['idUser']);
-                        $_SESSION['permisos'] = $this->model->permisosRol($_SESSION['userData']['idrol']);
+
+                        require_once "Models/PermisosModel.php";
+                        $objPermisos = new PermisosModel();
+                        $_SESSION['permisos'] = $objPermisos->permisosModulo($_SESSION['userData']['idrol']);
                         error_log(print_r($_SESSION['permisos'], true));
 
                         $arrResponse = ['status' => true, 'msg' => 'ok'];

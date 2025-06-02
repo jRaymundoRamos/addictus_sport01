@@ -29,7 +29,7 @@ class PermisosModel extends Mysql
     public function selectPermisosRol(int $idrol): array
     {
         $sql = "SELECT * FROM permisos WHERE rolid = ?";
-        return $this->select_all($sql, [$idrol]);
+        return $this->select_all_params($sql, [$idrol]);
     }
 
     /**
@@ -67,7 +67,7 @@ class PermisosModel extends Mysql
                 INNER JOIN modulo m ON p.moduloid = m.idmodulo
                 WHERE p.rolid = ?";
 
-        $result = $this->select_all($sql, [$idrol]);
+        $result = $this->select_all_params($sql, [$idrol]);
 
         // Organizar permisos por id del módulo
         $arrPermisos = [];

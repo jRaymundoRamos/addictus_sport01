@@ -1,8 +1,6 @@
 <?php
 
-// ==========================
-// 🏁 BASE DEL SISTEMA
-// ==========================
+// BASE DEL SISTEMA
 
 function base_url(): string {
     return BASE_URL;
@@ -12,9 +10,8 @@ function media(): string {
     return BASE_URL . "Assets";
 }
 
-// ==========================
-// 📦 VISTAS Y COMPONENTES
-// ==========================
+
+// VISTAS Y COMPONENTES
 
 function getFile(string $url, array $data = []): string {
     extract($data);
@@ -48,9 +45,7 @@ function footerTienda(array $data = []): void {
     require_once "Views/Template/footer_tienda.php";
 }
 
-// ==========================
-// 🔐 SESIÓN Y SEGURIDAD
-// ==========================
+// SESIÓN Y SEGURIDAD
 
 function requireLogin(): void {
     if (session_status() === PHP_SESSION_NONE) {
@@ -79,9 +74,8 @@ function sessionUser(int $idpersona): array {
     return $objLogin->sessionLogin($idpersona);
 }
 
-// ==========================
-// 🛡️ LIMPIEZA DE STRINGS
-// ==========================
+
+// LIMPIEZA DE STRINGS
 
 function strClean(string $cadena): string {
     $cadena = preg_replace(['/\s+/', '/^\s|\s$/'], [' ', ''], $cadena);
@@ -108,9 +102,7 @@ function clear_cadena(string $cadena): string {
     return strtr($cadena, $mapa);
 }
 
-// ==========================
-// 🔒 UTILIDADES DE SEGURIDAD
-// ==========================
+// UTILIDADES DE SEGURIDAD
 
 function passGenerator(int $length = 10): string {
     $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
@@ -121,17 +113,14 @@ function token(): string {
     return implode('-', array_map(fn() => bin2hex(random_bytes(10)), range(1, 4)));
 }
 
-// ==========================
-// 💸 DINERO Y FORMATO
-// ==========================
+// DINERO Y FORMATO
 
 function formatMoney(float $cantidad): string {
     return number_format($cantidad, 2, SPD, SPM);
 }
 
-// ==========================
-// 🧪 DEBUG
-// ==========================
+// DEBUG
+
 
 function dep(mixed $data): void {
     echo '<pre>';
@@ -139,9 +128,7 @@ function dep(mixed $data): void {
     echo '</pre>';
 }
 
-// ==========================
-// 📧 CORREO
-// ==========================
+// CORREO
 
 function sendEmail(array $data, string $template): bool {
     $asunto = $data['asunto'];

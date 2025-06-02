@@ -29,7 +29,7 @@ class Mysql extends Conexion {
         try {
             $this->strquery = $query;
             $result = $this->conexion->prepare($this->strquery);
-            $result->execute($params); // 👈 Aquí pasas los parámetros
+            $result->execute($params); // Aquí pasas los parámetros
             return $result->fetch(PDO::FETCH_ASSOC) ?: [];
         } catch (PDOException $e) {
             return [];

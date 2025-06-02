@@ -8,15 +8,10 @@
             </div>
         </div>
         <ul class="app-menu">
-            <?php  
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-            var_dump($_SESSION['permisos']); ?>
             <?php if (!empty($_SESSION['permisos'][1]['r'])) { ?>
                 <li>
-                    <a class="app-menu__item" href="<?= base_url(); ?>/dashboard">
+                    <a class="app-menu__item" href="<?= base_url(); ?>dashboard">
                         <i class="app-menu__icon fa fa-dashboard"></i>
                         <span class="app-menu__label">Dashboard</span>
                     </a>
@@ -30,18 +25,18 @@ if (session_status() === PHP_SESSION_NONE) {
                         <i class="treeview-indicator fa fa-angle-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a class="treeview-item" href="<?= base_url(); ?>/usuarios"><i class="icon fa fa-circle-o"></i> Usuarios</a></li>
-                        <li><a class="treeview-item" href="<?= base_url(); ?>/roles"><i class="icon fa fa-circle-o"></i> Roles</a></li>
+                        <li><a class="treeview-item" href="<?= base_url(); ?>usuarios"><i class="icon fa fa-circle-o"></i> Usuarios</a></li>
+                        <li><a class="treeview-item" href="<?= base_url(); ?>roles"><i class="icon fa fa-circle-o"></i> Roles</a></li>
                     </ul>
                 </li>
             <?php } ?>
             <?php if (!empty($_SESSION['permisos'][3]['r'])) { ?>
-                <li>
-                    <a class="app-menu__item" href="<?= base_url(); ?>/clientes">
+                <!-- <li>
+                    <a class="app-menu__item" href="<?= base_url(); ?>clientes">
                         <i class="app-menu__icon fa fa-user" aria-hidden="true"></i>
                         <span class="app-menu__label">Clientes</span>
                     </a>
-                </li>
+                </li> -->
             <?php } ?>
             <?php if (!empty($_SESSION['permisos'][4]['r']) || !empty($_SESSION['permisos'][6]['r'])) { ?>
                 <li class="treeview">
@@ -52,21 +47,21 @@ if (session_status() === PHP_SESSION_NONE) {
                     </a>
                     <ul class="treeview-menu">
                         <?php if (!empty($_SESSION['permisos'][4]['r'])) { ?>
-                            <li><a class="treeview-item" href="<?= base_url(); ?>/productos"><i class="icon fa fa-circle-o"></i> Productos</a></li>
+                            <li><a class="treeview-item" href="<?= base_url(); ?>productos"><i class="icon fa fa-circle-o"></i> Productos</a></li>
                         <?php } ?>
                         <?php if (!empty($_SESSION['permisos'][6]['r'])) { ?>
-                            <li><a class="treeview-item" href="<?= base_url(); ?>/categorias"><i class="icon fa fa-circle-o"></i> Categorías</a></li>
+                            <li><a class="treeview-item" href="<?= base_url(); ?>categorias"><i class="icon fa fa-circle-o"></i> Categorías</a></li>
                         <?php } ?>
                     </ul>
                 </li>
             <?php } ?>
             <?php if (!empty($_SESSION['permisos'][5]['r'])) { ?>
-                <li>
-                    <a class="app-menu__item" href="<?= base_url(); ?>/pedidos">
+                <!-- <li>
+                    <a class="app-menu__item" href="<?= base_url(); ?>pedidos">
                         <i class="app-menu__icon fa fa-shopping-cart" aria-hidden="true"></i>
                         <span class="app-menu__label">Pedidos</span>
                     </a>
-                </li>
+                </li> -->
             <?php } ?>
             <li>
                 <a class="app-menu__item" href="<?= base_url(); ?>/logout">
