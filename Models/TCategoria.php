@@ -22,7 +22,7 @@ trait TCategoria
                 FROM categoria 
                 WHERE status != 0 AND idcategoria IN ($placeholders)";
 
-        $request = $this->con->select_all($sql, $ids);
+        $request = $this->con->select_all_params($sql, $ids);
 
         // Agregar ruta absoluta a las imágenes
         foreach ($request as &$categoria) {
@@ -31,4 +31,6 @@ trait TCategoria
 
         return $request;
     }
+
+
 }

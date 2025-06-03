@@ -23,7 +23,7 @@ $arrProductos = $data['productos'];
 
 				
 				<!-- Filter -->
-				<div class="dis-none panel-filter w-full p-t-10">
+				<!-- <div class="dis-none panel-filter w-full p-t-10">
 					<div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
 						<div class="filter-col1 p-r-15 p-b-27">
 							<div class="mtext-102 cl2 p-b-15">
@@ -129,7 +129,7 @@ $arrProductos = $data['productos'];
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 
 
@@ -155,7 +155,7 @@ $arrProductos = $data['productos'];
 						</div>
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="<?= base_url().'/tienda/producto/'.$arrProductos[$p]['idproducto'].'/'.$ruta; ?>" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+								<a href="<?= base_url().'tienda/producto/'.$arrProductos[$p]['idproducto'].'/'.$ruta; ?>" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 									<?= $arrProductos[$p]['nombre'] ?>
 								</a>
 								<span class="stext-105 cl3">
@@ -163,7 +163,7 @@ $arrProductos = $data['productos'];
 								</span>
 							</div>
 							<div class="block2-txt-child2 flex-r p-t-3">
-								<a href="<?= base_url().'/tienda/producto/'.$arrProductos[$p]['nombre']; ?>" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+								<a href="<?= base_url().'tienda/producto/'.$arrProductos[$p]['nombre']; ?>" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
 									<img class="icon-heart1 dis-block trans-04" src="<?= media() ?>/tienda/images/icons/icon-heart-01.png" alt="ICON">
 									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="<?= media() ?>/tienda/images/icons/icon-heart-02.png" alt="ICON">
 								</a>

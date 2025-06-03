@@ -3,7 +3,9 @@ headerTienda($data);
 $arrSlider = $data['slider'];
 $arrBanner = $data['banner'];
 $arrProductos = $data['productos'];
-?>
+ if (empty($arrSlider)) {
+    echo "<p>No hay elementos en el slider.</p>";
+} ?>
 <!-- Slider -->
 <section class="section-slide">
 	<div class="wrap-slick1">
@@ -28,7 +30,7 @@ $arrProductos = $data['productos'];
 							</div>
 
 							<div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
-								<a href="<?= base_url() . '/tienda/categoria/' . $arrSlider[$i]['idcategoria'] . '/' . $ruta; ?>" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+								<a href="<?= base_url() . 'tienda/categoria/' . $arrSlider[$i]['idcategoria'] . '/' . $ruta; ?>" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
 									Ver productos
 								</a>
 							</div>
